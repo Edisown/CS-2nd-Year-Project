@@ -7,16 +7,27 @@
 
 package prelim;
 
+/**
+ * Represents a polynomial using a singly linked list of terms.
+ * Provides methods to add, evaluate, add, subtract, multiply, and divide polynomials.
+ */
 public class Polynomial implements PolynomialInterface {
     private MyLinkedList<Term> terms;
 
+    /**
+     * Constructs an empty Polynomial.
+     */
     public Polynomial() {
         this.terms = new MyLinkedList<>();
     }
 
-    // Add a term to the polynomial
+    /**
+     * Adds a term to the polynomial. If the term's exponent already exists in the polynomial,
+     * their coefficients will be combined. If the resulting coefficient is zero, the term is removed.
+     *
+     * @param term the term to add
+     */
     public void addTerm(Term term) {
-        // Check if the polynomial is empty
         if (terms.getSize() == 0) {
             terms.addToTail(term);
             return;
@@ -26,33 +37,27 @@ public class Polynomial implements PolynomialInterface {
         Node<Term> prev = null;
         boolean added = false;
 
-        // Traverse to find the correct position to insert the term
         while (current != null) {
             Term existingTerm = current.getData();
 
-            // If exponents are the same, combine coefficients
             if (existingTerm.getExponent() == term.getExponent()) {
                 int newCoefficient = existingTerm.getNumericalCoefficient() + term.getNumericalCoefficient();
                 if (newCoefficient != 0) {
                     existingTerm.setNumericalCoefficient(newCoefficient);
                 } else {
-                    // Remove the term if the coefficient becomes zero
                     if (prev == null) {
-                        // Removing the head
                         terms.remove(current.getData());
                     } else {
-                        // Removing from the middle or end
                         prev.setNext(current.getNext());
                     }
                 }
                 added = true;
                 break;
             } else if (existingTerm.getExponent() < term.getExponent()) {
-                // Insert the term before the current node
                 if (prev == null) {
-                    terms.addToHead(term);  // Add to head if inserting at the front
+                    terms.addToHead(term);
                 } else {
-                    terms.addToTail(term);  // Add to tail after the previous node
+                    terms.addToTail(term);
                 }
                 added = true;
                 break;
@@ -62,12 +67,17 @@ public class Polynomial implements PolynomialInterface {
             current = current.getNext();
         }
 
-        // If we reached the end and didn't add the term, it is the smallest term
         if (!added) {
             terms.addToTail(term);
         }
     }
 
+    /**
+     * Evaluates the polynomial for a given value of x.
+     *
+     * @param x the value to evaluate the polynomial at
+     * @return the result of the evaluation
+     */
     @Override
     public double evaluate(double x) {
         double result = 0;
@@ -81,18 +91,22 @@ public class Polynomial implements PolynomialInterface {
         return result;
     }
 
+    /**
+     * Adds two polynomials together and returns the resulting polynomial.
+     *
+     * @param other the polynomial to add
+     * @return the sum of the two polynomials
+     */
     @Override
     public Polynomial add(Polynomial other) {
         Polynomial result = new Polynomial();
 
-        // Add all terms from this polynomial
         Node<Term> thisCurrent = this.terms.getHead();
         while (thisCurrent != null) {
             result.addTerm(thisCurrent.getData());
             thisCurrent = thisCurrent.getNext();
         }
 
-        // Add all terms from the other polynomial
         Node<Term> otherCurrent = other.terms.getHead();
         while (otherCurrent != null) {
             result.addTerm(otherCurrent.getData());
@@ -102,18 +116,22 @@ public class Polynomial implements PolynomialInterface {
         return result;
     }
 
+    /**
+     * Subtracts one polynomial from another and returns the resulting polynomial.
+     *
+     * @param other the polynomial to subtract
+     * @return the difference of the two polynomials
+     */
     @Override
     public Polynomial subtract(Polynomial other) {
         Polynomial result = new Polynomial();
 
-        // Add all terms from this polynomial
         Node<Term> thisCurrent = this.terms.getHead();
         while (thisCurrent != null) {
             result.addTerm(thisCurrent.getData());
             thisCurrent = thisCurrent.getNext();
         }
 
-        // Subtract all terms from the other polynomial
         Node<Term> otherCurrent = other.terms.getHead();
         while (otherCurrent != null) {
             Term negatedTerm = new Term(-otherCurrent.getData().getNumericalCoefficient(),
@@ -126,6 +144,12 @@ public class Polynomial implements PolynomialInterface {
         return result;
     }
 
+    /**
+     * Multiplies two polynomials and returns the resulting polynomial.
+     *
+     * @param other the polynomial to multiply by
+     * @return the product of the two polynomials
+     */
     @Override
     public Polynomial multiply(Polynomial other) {
         Polynomial result = new Polynomial();
@@ -150,6 +174,12 @@ public class Polynomial implements PolynomialInterface {
         return result;
     }
 
+    /**
+     * Divides the polynomial by another polynomial and returns the quotient.
+     *
+     * @param divisor the polynomial to divide by
+     * @return the quotient polynomial
+     */
     @Override
     public Polynomial divide(Polynomial divisor) {
         Polynomial quotient = new Polynomial();
@@ -174,6 +204,11 @@ public class Polynomial implements PolynomialInterface {
         return quotient;
     }
 
+    /**
+     * Returns a string representation of the polynomial in standard form.
+     *
+     * @return the polynomial as a string
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -184,35 +219,32 @@ public class Polynomial implements PolynomialInterface {
             int coefficient = term.getNumericalCoefficient();
             int exponent = term.getExponent();
 
-            // Skip zero coefficients
             if (coefficient == 0) {
                 current = current.getNext();
                 continue;
             }
 
-            // Handle the sign for the first term or subsequent terms
             if (result.length() > 0) {
                 if (coefficient > 0) {
                     result.append(" + ");
                 } else {
                     result.append(" - ");
-                    coefficient = -coefficient; // Use absolute value for display
+                    coefficient = -coefficient;
                 }
             } else if (coefficient < 0) {
-                result.append("-"); // Start with a negative sign if the first term is negative
-                coefficient = -coefficient; // Use absolute value for display
+                result.append("-");
+                coefficient = -coefficient;
             }
 
-            // Append the coefficient
             if (exponent == 0) {
-                result.append(coefficient); // Constant term
+                result.append(coefficient);
             } else {
                 if (coefficient != 1) {
-                    result.append(coefficient); // Coefficient for x
+                    result.append(coefficient);
                 }
-                result.append("x"); // Variable
+                result.append("x");
                 if (exponent > 1) {
-                    result.append("^").append(exponent); // Exponent if greater than 1
+                    result.append("^").append(exponent);
                 }
             }
 

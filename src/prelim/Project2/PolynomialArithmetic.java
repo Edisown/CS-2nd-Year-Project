@@ -10,8 +10,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * This class represents a Polynomial Arithmetic Calculator that allows users to perform
+ * various operations on polynomials, such as evaluating, adding, subtracting, multiplying,
+ * and dividing polynomials. The program uses a singly linked list to store polynomials
+ * and their terms.
+ */
 public class PolynomialArithmetic {
-
     public static void main(String[] args) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         MyLinkedList<Polynomial> polynomials = new MyLinkedList<>();
@@ -61,6 +66,13 @@ public class PolynomialArithmetic {
         }
     }
 
+    /**
+     * Evaluates a polynomial by reading its input and the value of x from the user.
+     * The result of the evaluation is then printed to the console.
+     *
+     * @param reader BufferedReader object for reading user input.
+     * @throws IOException If an error occurs during input reading.
+     */
     private static void evaluatePolynomial(BufferedReader reader) throws IOException {
         System.out.print("Enter the polynomial: ");
         String polynomialInput = reader.readLine();
@@ -73,6 +85,13 @@ public class PolynomialArithmetic {
         System.out.println("Result: " + result);
     }
 
+    /**
+     * Adds two polynomials by reading their input from the user, adding them together,
+     * and printing the result to the console.
+     *
+     * @param reader BufferedReader object for reading user input.
+     * @throws IOException If an error occurs during input reading.
+     */
     private static void addPolynomials(BufferedReader reader) throws IOException {
         System.out.print("Enter the first polynomial: ");
         String poly1Input = reader.readLine();
@@ -86,6 +105,13 @@ public class PolynomialArithmetic {
         System.out.println("Result: " + result);
     }
 
+    /**
+     * Subtracts the second polynomial from the first by reading their input from the user,
+     * performing the subtraction, and printing the result to the console.
+     *
+     * @param reader BufferedReader object for reading user input.
+     * @throws IOException If an error occurs during input reading.
+     */
     private static void subtractPolynomials(BufferedReader reader) throws IOException {
         System.out.print("Enter the first polynomial: ");
         String poly1Input = reader.readLine();
@@ -99,6 +125,13 @@ public class PolynomialArithmetic {
         System.out.println("Result: " + result);
     }
 
+    /**
+     * Multiplies two polynomials by reading their input from the user, multiplying them,
+     * and printing the result to the console.
+     *
+     * @param reader BufferedReader object for reading user input.
+     * @throws IOException If an error occurs during input reading.
+     */
     private static void multiplyPolynomials(BufferedReader reader) throws IOException {
         System.out.print("Enter the first polynomial: ");
         String poly1Input = reader.readLine();
@@ -112,6 +145,13 @@ public class PolynomialArithmetic {
         System.out.println("Result: " + result);
     }
 
+    /**
+     * Divides the first polynomial (dividend) by the second polynomial (divisor) by reading
+     * their input from the user, performing the division, and printing the result to the console.
+     *
+     * @param reader BufferedReader object for reading user input.
+     * @throws IOException If an error occurs during input reading.
+     */
     private static void dividePolynomials(BufferedReader reader) throws IOException {
         System.out.print("Enter the dividend polynomial: ");
         String dividendInput = reader.readLine();
@@ -125,6 +165,13 @@ public class PolynomialArithmetic {
         System.out.println("Result: " + result);
     }
 
+    /**
+     * Parses the user's input string into a Polynomial object. The input string is expected
+     * to be in the form of terms separated by plus signs (e.g., "3x^2 + 5x + 1").
+     *
+     * @param input The polynomial input string from the user.
+     * @return A Polynomial object representing the parsed polynomial.
+     */
     private static Polynomial parsePolynomial(String input) {
         MyLinkedList<Term> terms = new MyLinkedList<>();
         String[] termStrings = input.split("\\s*\\+\\s*"); // split by plus signs and trim spaces
