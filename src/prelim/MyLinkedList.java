@@ -1,11 +1,10 @@
-package prelim;
-
 /**
  * Author:
  * <p> Edison M. Malasan </p>
  * CS211 - 9344(A/B)
-*/
+ */
 
+package prelim;
 public class MyLinkedList<E> {
     private Node<E> head;
     private Node<E> tail;
