@@ -1,2 +1,2 @@
 # CS-2nd-Year-Project
-My Project in 2nd Year CS
+Compilation of My Projects as a 2nd CS Student
