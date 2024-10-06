@@ -134,7 +134,6 @@ public class PolynomialArithmetic {
                 int coefficient = 1; // default coefficient
                 int exponent = 0; // default exponent
 
-                // check for negative sign
                 boolean isNegative = termString.startsWith("-");
                 if (isNegative) {
                     termString = termString.substring(1).trim(); // remove the negative sign
