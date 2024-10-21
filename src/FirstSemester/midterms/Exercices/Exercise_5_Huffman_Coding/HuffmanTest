@@ -4,7 +4,16 @@ package midterms;
  The code for HuffmanTest is as follows
  --------------------------------------------------------------
  REQUIRED:
- SHOW THE SAMPLE RUN BELOW
+ Char | Huffman code 
+ --------------------
+ F | 00000
+ G | 00001
+ H | 0001
+ B | 001
+ A | 01
+ C | 100
+ D | 101
+ E | 11
  */
 import java.util.PriorityQueue;
 public class HuffmanTest {
