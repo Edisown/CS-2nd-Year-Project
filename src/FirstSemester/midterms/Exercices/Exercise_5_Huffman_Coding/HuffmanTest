@@ -1,56 +1,53 @@
 package midterms;
+/**
+ --------------------------------------------------------------
+ The code for HuffmanTest is as follows
+ --------------------------------------------------------------
+ REQUIRED:
+ SHOW THE SAMPLE RUN BELOW
+ */
+import java.util.PriorityQueue;
+public class HuffmanTest {
+    public static void printCode(TreeNode root, String s) {
+        if (root.getLeft() == null && root.getRight() == null && Character.isLetter(root.getSymbol())) {
+            System.out.println(root.getSymbol() + " | " + s);
+            return;
+        }
+        printCode(root.getLeft(), s + "0");
+        printCode(root.getRight(), s + "1");
+    }
+    public static void main(String[] args) {
+        int n = 8;
+        char[] symbolArray = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+        int[] symbolFrequency = { 30, 12, 13, 20, 45, 2, 2, 7 };
+        PriorityQueue<TreeNode> huffmanTree = new PriorityQueue<TreeNode>(n);
+        for (int i = 0; i < n; i++) {
 
-import java.lang.Comparable;
-public class TreeNode implements Comparable<TreeNode>{
-    int count;
-    char symbol;
-    TreeNode left;
-    TreeNode right;
-    public TreeNode(){
-        count =0;
-        symbol = 'x';
-        left=null;
-        right=null;
-    }
-
-    public TreeNode(int count, char symbol, TreeNode left, TreeNode right ){
-        this.count = count;
-        this.symbol =symbol;
-        this.left = left;
-        this.right = right;
-    }
-    public void setCount(int count){
-        this.count = count;
-    }
-    public void setSymbol(char symbol){
-        this.symbol = symbol;
-    }
-    public void setLeft(TreeNode left){
-        this.left = left;
-    }
-    public void setRight(TreeNode right){
-        this.right = right;
-    }
-    public int getCount(){
-        return count;
-    }
-    public char getSymbol(){
-        return symbol;
-    }
-    public TreeNode getLeft(){
-        return left;
-    }
-    public TreeNode getRight(){
-        return right;
-    }
-    public int compareTo(TreeNode other){
-
-        if (this.getCount() == other.getCount())
-            return 0;
-        else
-        if (this.getCount()<other.getCount() )
-            return -1;
-        else
-            return 1;
+            TreeNode huffmanNode = new TreeNode();
+            huffmanNode.setSymbol(symbolArray[i]);
+            huffmanNode.setCount(symbolFrequency[i]);
+            huffmanNode.setLeft(null);
+            huffmanNode.setRight(null);
+            huffmanTree.add(huffmanNode);
+        }
+        TreeNode root = null;
+        while (huffmanTree.size() > 1) {
+            TreeNode t = huffmanTree.peek();
+            huffmanTree.poll();
+            TreeNode u = huffmanTree.peek();
+            huffmanTree.poll();
+            TreeNode v = new TreeNode();
+            v.setCount(t.getCount() + u.getCount());
+            v.setSymbol('-');
+            v.setLeft(t);
+            v.setRight(u);
+            root = v;
+            huffmanTree.add(v);
+        }
+        System.out.println(" Char | Huffman code ");
+        System.out.println("--------------------");
+        printCode(root, "");
+        System.out.println();
+        System.out.println("Tested By: MALASAN, Edison M.");
     }
 }
